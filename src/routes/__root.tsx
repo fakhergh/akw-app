@@ -3,10 +3,11 @@ import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import { createRootRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { AppBar } from '@/components/AppBar/AppBar';
 import { Drawer, DrawerHeader } from '@/components/Drawer/Drawer';
+import { UserService } from '@/services/api';
 import { drawerWidth } from '@/styles/theme';
 
 const drawerItems = [
@@ -31,6 +32,11 @@ const drawerItems = [
 ];
 
 function RootRoute() {
+    useEffect(() => {
+        UserService.userControllerPaginatedUsers().then((response) =>
+            console.log(response),
+        );
+    }, []);
     const [sideBarCollapsed, setSideBarCollapsed] = useState(false);
 
     const location = useLocation();

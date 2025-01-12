@@ -31,18 +31,21 @@ export class KycSubmissionService {
     }
     /**
      * Create kyc submission
-     * @param requestBody
+     * @param formData
      * @returns KycSubmission
      * @throws ApiError
      */
-    public static kycSubmissionControllerCreateKycSubmission(
-        requestBody?: any,
-    ): CancelablePromise<KycSubmission> {
+    public static kycSubmissionControllerCreateKycSubmission(formData: {
+        /**
+         * The documents to upload
+         */
+        documents?: Array<Blob>;
+    }): CancelablePromise<KycSubmission> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/kyc-submissions',
-            body: requestBody,
-            mediaType: 'application/json',
+            formData: formData,
+            mediaType: 'multipart/form-data',
         });
     }
     /**

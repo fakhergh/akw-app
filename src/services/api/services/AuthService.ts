@@ -2,9 +2,11 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Admin } from '../models/Admin';
 import type { LoginDto } from '../models/LoginDto';
 import type { LoginResponse } from '../models/LoginResponse';
 import type { RefreshTokenResponse } from '../models/RefreshTokenResponse';
+import type { User } from '../models/User';
 import type { UserRegisterDto } from '../models/UserRegisterDto';
 import type { UserRegisterResponse } from '../models/UserRegisterResponse';
 import type { CancelablePromise } from '../core/CancelablePromise';
@@ -42,6 +44,17 @@ export class AuthService {
             headers: {
                 'refresh-token': refreshToken,
             },
+        });
+    }
+    /**
+     * Admin profile
+     * @returns Admin
+     * @throws ApiError
+     */
+    public static authControllerAdminProfile(): CancelablePromise<Admin> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/auth/admin/me',
         });
     }
     /**
@@ -91,6 +104,17 @@ export class AuthService {
             headers: {
                 'refresh-token': refreshToken,
             },
+        });
+    }
+    /**
+     * User profile
+     * @returns User
+     * @throws ApiError
+     */
+    public static authControllerUserProfile(): CancelablePromise<User> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/auth/user/me',
         });
     }
 }
