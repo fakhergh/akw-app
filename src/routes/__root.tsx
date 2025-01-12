@@ -1,3 +1,4 @@
+import Box from '@mui/material/Box';
 import {
     createRootRoute,
     Link,
@@ -6,7 +7,7 @@ import {
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
 
-import { NavBar } from '../components/NavBar';
+import { NavBar } from '@/components/NavBar/NavBar';
 
 function RootRoute() {
     const location = useLocation();
@@ -14,7 +15,7 @@ function RootRoute() {
     const isAuthRoute = location.pathname.match(/^\/(auth|admin\/auth)/);
 
     return (
-        <div>
+        <Box>
             {!isAuthRoute && <NavBar />}
             <div className="p-2 flex gap-5">
                 <Link to="/" className="[&.active]:font-bold">
@@ -45,7 +46,7 @@ function RootRoute() {
             <hr />
             <Outlet />
             <TanStackRouterDevtools />
-        </div>
+        </Box>
     );
 }
 
