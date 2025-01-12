@@ -1,24 +1,12 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`<NavBar/> > should match snapshot 1`] = `
+exports[`<Drawer/> > Should match snapshot 1`] = `
 {
   "asFragment": [Function],
   "baseElement": <body>
-    <div>
-      <h1
-        class="MuiTypography-root MuiTypography-h1 css-1ee12j5-MuiTypography-root"
-      >
-        Navbar
-      </h1>
-    </div>
+    <div />
   </body>,
-  "container": <div>
-    <h1
-      class="MuiTypography-root MuiTypography-h1 css-1ee12j5-MuiTypography-root"
-    >
-      Navbar
-    </h1>
-  </div>,
+  "container": <div />,
   "debug": [Function],
   "findAllByAltText": [Function],
   "findAllByDisplayValue": [Function],

@@ -16,3 +16,5 @@ export const theme = createTheme({
     shadows,
     components,
 });
+
+export const drawerWidth = '22rem';
