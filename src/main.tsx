@@ -13,7 +13,7 @@ import { theme } from '@/styles/theme';
 
 OpenAPI.BASE = import.meta.env.VITE_API_URL!;
 OpenAPI.TOKEN = async () => {
-    return localStorage.getItem('token')!;
+    return localStorage.getItem('accessToken')!;
 };
 
 const router = createRouter({ routeTree });

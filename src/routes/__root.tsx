@@ -1,16 +1,29 @@
 import IconDashboard from '@mui/icons-material/Dashboard';
+import IconExitToApp from '@mui/icons-material/ExitToApp';
+import { Tooltip } from '@mui/material';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
-import { createRootRoute, Outlet, useLocation } from '@tanstack/react-router';
+import IconButton from '@mui/material/IconButton';
+import {
+    createRootRoute,
+    Outlet,
+    useLocation,
+    useRouter,
+} from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import { AppBar } from '@/components/AppBar/AppBar';
-import { Drawer, DrawerHeader } from '@/components/Drawer/Drawer';
-import { UserService } from '@/services/api';
+import {
+    Drawer,
+    DrawerHeader,
+    DrawerItemProps,
+} from '@/components/Drawer/Drawer';
+import { routes } from '@/config/navigation';
+import { queryClient } from '@/services/queryClient';
 import { drawerWidth } from '@/styles/theme';
 
-const drawerItems = [
+const adminDrawerItems = [
     {
         itemKey: 'dashboard',
         label: 'Dashboard',
@@ -31,14 +44,12 @@ const drawerItems = [
     },
 ];
 
+const userDrawerItems: Array<DrawerItemProps> = [];
+
 function RootRoute() {
-    useEffect(() => {
-        UserService.userControllerPaginatedUsers().then((response) =>
-            console.log(response),
-        );
-    }, []);
     const [sideBarCollapsed, setSideBarCollapsed] = useState(false);
 
+    const { navigate } = useRouter();
     const location = useLocation();
 
     const isAuthRoute = location.pathname.match(/^\/(auth|admin\/auth)/);
@@ -48,6 +59,13 @@ function RootRoute() {
         setSideBarCollapsed((prev) => !prev);
     }, []);
 
+    const logout = useCallback(() => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+        queryClient.clear();
+        navigate({ to: routes.user.auth.login });
+    }, [navigate]);
+
     return (
         <Box width="100svw" height="100svh" overflow="hidden" display="flex">
             {!isAuthRoute && (
@@ -56,15 +74,21 @@ function RootRoute() {
                     drawerWidth={drawerWidth}
                     open={!sideBarCollapsed}
                     onMenuButtonClick={toggleDrawer}
-                />
+                >
+                    <Tooltip title="Logout">
+                        <IconButton onClick={logout}>
+                            <IconExitToApp />
+                        </IconButton>
+                    </Tooltip>
+                </AppBar>
             )}
-            {!isAuthRoute && isAdmin && (
+            {!isAuthRoute && (
                 <Drawer
                     variant="permanent"
                     anchor="left"
                     drawerWidth={drawerWidth}
                     open={!sideBarCollapsed}
-                    items={drawerItems}
+                    items={isAdmin ? adminDrawerItems : userDrawerItems}
                 >
                     <DrawerHeader display="flex"></DrawerHeader>
                     <Divider />

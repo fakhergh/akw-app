@@ -20,7 +20,6 @@ export interface DrawerItemProps {
     label: string;
     path?: string;
     icon?: SvgIconComponent;
-    items?: Array<DrawerItemProps>;
 }
 
 export interface DrawerContentProps extends Pick<ListItemProps, 'openDrawer'> {
