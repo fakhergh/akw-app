@@ -8,6 +8,7 @@ import { routeTree } from '@/routeTree.gen';
 import { OpenAPI } from '@/services/api';
 import { theme } from '@/styles/theme';
 
+OpenAPI.BASE = import.meta.env.VITE_API_URL!;
 OpenAPI.TOKEN = async () => {
     return localStorage.getItem('token')!;
 };
