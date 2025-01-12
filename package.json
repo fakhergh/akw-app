@@ -11,7 +11,9 @@
         "static:fix": "eslint . --fix && prettier --log-level silent --write --ignore-unknown .",
         "preview": "vite preview",
         "test": "vitest --config ./vitest.config.ts --run",
-        "test:watch": "vitest --config ./vitest.config.ts"
+        "test:watch": "vitest --config ./vitest.config.ts",
+        "codegen": "openapi -i http://localhost:9000/docs.json -o src/services/api -c axios",
+        "postcodegen": "npm run static:fix"
     },
     "dependencies": {
         "@emotion/react": "^11.14.0",
@@ -19,6 +21,7 @@
         "@mui/icons-material": "^6.3.1",
         "@mui/material": "^6.3.1",
         "@tanstack/react-router": "^1.95.3",
+        "axios": "^1.7.9",
         "husky": "^9.1.7",
         "react": "^18.3.1",
         "react-dom": "^18.3.1"
@@ -38,6 +41,8 @@
         "eslint-plugin-simple-import-sort": "^12.1.1",
         "globals": "^15.14.0",
         "happy-dom": "^16.5.3",
+        "openapi-typescript": "^7.5.2",
+        "openapi-typescript-codegen": "^0.29.0",
         "prettier": "^3.4.2",
         "typescript": "~5.6.2",
         "typescript-eslint": "^8.18.2",
