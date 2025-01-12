@@ -45,6 +45,7 @@ const openedMixin = (theme: Theme, drawerWidth: string): CSSObject => ({
     transition: `
             width ${theme.transitions.duration.enteringScreen}ms ${theme.transitions.easing.sharp},
             margin ${theme.transitions.duration.enteringScreen}ms ${theme.transitions.easing.sharp},
+            background 500ms ${theme.transitions.easing.sharp}
         `,
     overflowX: 'hidden',
     border: 'none',
@@ -56,6 +57,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
     transition: `
             width ${theme.transitions.duration.leavingScreen}ms ${theme.transitions.easing.sharp},
             margin ${theme.transitions.duration.leavingScreen}ms ${theme.transitions.easing.sharp},
+            background 500ms ${theme.transitions.easing.sharp}
         `,
     overflowX: 'hidden',
     border: 'none',

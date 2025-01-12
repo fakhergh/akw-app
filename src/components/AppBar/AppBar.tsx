@@ -21,14 +21,16 @@ const BaseAppBar = styled(MuiAppBar, {
         transition: `
             width ${theme.transitions.duration.leavingScreen}ms ${theme.transitions.easing.sharp},
             margin ${theme.transitions.duration.leavingScreen}ms ${theme.transitions.easing.sharp},
-        `,
+                background 500ms ${theme.transitions.easing.sharp}
+    `,
         ...(open && {
             marginLeft: drawerWidth,
             width: `calc(100% - ${theme.spacing(6)} - ${drawerWidth})`,
             transition: `
-            width ${theme.transitions.duration.enteringScreen}ms ${theme.transitions.easing.sharp},
-            margin ${theme.transitions.duration.enteringScreen}ms ${theme.transitions.easing.sharp},
-        `,
+                width ${theme.transitions.duration.enteringScreen}ms ${theme.transitions.easing.sharp},
+                margin ${theme.transitions.duration.enteringScreen}ms ${theme.transitions.easing.sharp},
+                background 500ms ${theme.transitions.easing.sharp}
+    `,
         }),
     }),
 );
