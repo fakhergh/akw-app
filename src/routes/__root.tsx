@@ -20,6 +20,7 @@ import {
     DrawerItemProps,
 } from '@/components/Drawer/Drawer';
 import { routes } from '@/config/navigation';
+import { IconAppLogo } from '@/icons/IconAppLogo';
 import { queryClient } from '@/services/queryClient';
 import { drawerWidth } from '@/styles/theme';
 
@@ -63,8 +64,10 @@ function RootRoute() {
         localStorage.removeItem('accessToken');
         localStorage.removeItem('refreshToken');
         queryClient.clear();
-        navigate({ to: routes.user.auth.login });
-    }, [navigate]);
+        navigate({
+            to: isAdmin ? routes.admin.auth.login : routes.user.auth.login,
+        });
+    }, [isAdmin, navigate]);
 
     return (
         <Box width="100svw" height="100svh" overflow="hidden" display="flex">
@@ -90,7 +93,9 @@ function RootRoute() {
                     open={!sideBarCollapsed}
                     items={isAdmin ? adminDrawerItems : userDrawerItems}
                 >
-                    <DrawerHeader display="flex"></DrawerHeader>
+                    <DrawerHeader display="flex">
+                        <IconAppLogo width="2rem" height="2rem" />
+                    </DrawerHeader>
                     <Divider />
                 </Drawer>
             )}
@@ -98,11 +103,12 @@ function RootRoute() {
             <Box
                 display="flex"
                 flexDirection="column"
+                overflow="hidden"
                 flex={1}
-                paddingX={3}
-                paddingTop={isAuthRoute ? 3 : 12}
-                paddingBottom={3}
+                padding={2}
+                paddingTop={isAuthRoute ? 3 : 5}
             >
+                {!isAuthRoute && <DrawerHeader />}
                 <Outlet />
             </Box>
             <TanStackRouterDevtools />

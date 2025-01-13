@@ -5,7 +5,7 @@ import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { useCallback, useEffect } from 'react';
 
 import { AuthCard } from '@/components/AuthCard/AuthCard';
-import { Link } from '@/components/Link/Link.tsx';
+import { Link } from '@/components/Link/Link';
 import {
     RegisterForm,
     RegisterFormValues,
@@ -41,6 +41,7 @@ function RouteComponent() {
         if (data) {
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('refreshToken', data.refreshToken);
+            localStorage.setItem('userType', 'user');
             navigate({ to: routes.user.home });
         }
     }, [data, navigate]);

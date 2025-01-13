@@ -5,10 +5,10 @@ import Divider from '@mui/material/Divider';
 import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { useCallback, useEffect } from 'react';
 
-import { AuthCard } from '@/components/AuthCard/AuthCard.tsx';
+import { AuthCard } from '@/components/AuthCard/AuthCard';
 import { Link } from '@/components/Link/Link';
 import { LoginForm, LoginFormValues } from '@/components/LoginForm/LoginForm';
-import { routes } from '@/config/navigation.ts';
+import { routes } from '@/config/navigation';
 import { LoginDto } from '@/services/api';
 import { useUserLogin } from '@/services/authService';
 
@@ -37,6 +37,7 @@ function RouteComponent() {
         if (data) {
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('refreshToken', data.refreshToken);
+            localStorage.setItem('userType', 'user');
             navigate({ to: routes.user.home });
         }
     }, [data, navigate]);

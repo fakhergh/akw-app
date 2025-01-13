@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 import {
     ApiError,
@@ -27,5 +27,12 @@ export function useUserLogin() {
     return useMutation<LoginResponse, ApiError, LoginDto>({
         mutationKey: ['user-login'],
         mutationFn: (data) => AuthService.authControllerUserLogin(data),
+    });
+}
+
+export function useUserProfile() {
+    return useQuery({
+        queryKey: ['user-profile'],
+        queryFn: () => AuthService.authControllerUserProfile(),
     });
 }

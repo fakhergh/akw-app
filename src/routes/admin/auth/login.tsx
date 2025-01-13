@@ -4,9 +4,9 @@ import Button from '@mui/material/Button';
 import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { useCallback, useEffect } from 'react';
 
-import { AuthCard } from '@/components/AuthCard/AuthCard.tsx';
+import { AuthCard } from '@/components/AuthCard/AuthCard';
 import { LoginForm, LoginFormValues } from '@/components/LoginForm/LoginForm';
-import { routes } from '@/config/navigation.ts';
+import { routes } from '@/config/navigation';
 import { LoginDto } from '@/services/api';
 import { useAdminLogin } from '@/services/authService';
 
@@ -35,6 +35,7 @@ function RouteComponent() {
         if (data) {
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('refreshToken', data.refreshToken);
+            localStorage.setItem('userType', 'admin');
             navigate({ to: routes.admin.dashboard });
         }
     }, [data, navigate]);
@@ -62,7 +63,7 @@ function RouteComponent() {
                     userType="admin"
                 />
                 <Button
-                    color="secondary"
+                    color="success"
                     variant="outlined"
                     onClick={() => navigate({ to: routes.user.auth.login })}
                 >

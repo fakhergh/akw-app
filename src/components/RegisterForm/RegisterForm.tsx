@@ -7,9 +7,9 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { Formik } from 'formik';
 import { useCallback, useState } from 'react';
 
-import { InputField } from '@/components/InputField/InputField.tsx';
-import { BaseFormProps } from '@/interfaces/form.ts';
-import Yup from '@/utils/yup.ts';
+import { InputField } from '@/components/InputField/InputField';
+import { BaseFormProps } from '@/interfaces/form';
+import Yup from '@/utils/yup';
 
 export interface RegisterFormValues {
     firstName: string;

@@ -97,9 +97,7 @@ export function LoginForm({
                             sx={{ mt: 1, mb: 2 }}
                             onClick={() => handleSubmit()}
                             disabled={loading}
-                            color={
-                                userType === 'admin' ? 'secondary' : 'primary'
-                            }
+                            color={userType === 'admin' ? 'success' : 'primary'}
                         >
                             Login
                         </Button>

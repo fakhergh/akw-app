@@ -21,6 +21,7 @@ export type { RefreshTokenResponse } from './models/RefreshTokenResponse';
 export type { TotalKycSubmissionResponse } from './models/TotalKycSubmissionResponse';
 export type { TotalUserCountResponse } from './models/TotalUserCountResponse';
 export { User } from './models/User';
+export type { UserDocument } from './models/UserDocument';
 export type { UserRegisterDto } from './models/UserRegisterDto';
 export type { UserRegisterResponse } from './models/UserRegisterResponse';
 

@@ -6,6 +6,8 @@ import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 
+import { IconAppLogo } from '@/icons/IconAppLogo';
+
 export interface AppBarProps extends MuiAppBarProps {
     display?: 'block' | 'none';
     open?: boolean;
@@ -60,6 +62,7 @@ export function AppBar({
             <Toolbar>
                 <Box display="flex" alignItems="center">
                     <IconButton
+                        data-testid="menu-button"
                         color="inherit"
                         onClick={onMenuButtonClick}
                         edge={false}
@@ -71,7 +74,9 @@ export function AppBar({
                         collapsed={!open}
                         display="flex"
                         alignItems="center"
-                    />
+                    >
+                        <IconAppLogo width="1.5rem" height="1.5rem" />
+                    </AppLogoWrapper>
                 </Box>
                 <Box sx={{ flexGrow: 1 }} />
                 {children}

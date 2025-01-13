@@ -36,10 +36,13 @@ export class KycSubmissionService {
      * @throws ApiError
      */
     public static kycSubmissionControllerCreateKycSubmission(formData: {
-        /**
-         * The documents to upload
-         */
-        documents?: Array<Blob>;
+        firstName: string;
+        lastName: string;
+        email: string;
+        address: string;
+        phoneNumber: string;
+        gender: 'MALE' | 'FEMALE';
+        documents: Array<Blob>;
     }): CancelablePromise<KycSubmission> {
         return __request(OpenAPI, {
             method: 'POST',
@@ -66,14 +69,20 @@ export class KycSubmissionService {
         });
     }
     /**
-     * Last kyc submission
+     * Kyc submission by user
+     * @param userId
      * @returns KycSubmission
      * @throws ApiError
      */
-    public static kycSubmissionControllerLastKycSubmission(): CancelablePromise<KycSubmission> {
+    public static kycSubmissionControllerKycSubmissionByUser(
+        userId: string,
+    ): CancelablePromise<KycSubmission> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/kyc-submissions/last',
+            url: '/kyc-submissions/user/{userId}',
+            path: {
+                userId: userId,
+            },
         });
     }
     /**
