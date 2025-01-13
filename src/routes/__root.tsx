@@ -10,8 +10,16 @@ import {
     useLocation,
     useRouter,
 } from '@tanstack/react-router';
-import { TanStackRouterDevtools } from '@tanstack/router-devtools';
-import { useCallback, useState } from 'react';
+import { lazy, useCallback, useEffect, useState } from 'react';
+
+const TanStackRouterDevtools =
+    process.env.NODE_ENV === 'production'
+        ? () => null
+        : lazy(() =>
+              import('@tanstack/router-devtools').then((res) => ({
+                  default: res.TanStackRouterDevtools,
+              })),
+          );
 
 import { AppBar } from '@/components/AppBar/AppBar';
 import {
@@ -68,6 +76,17 @@ function RootRoute() {
             to: isAdmin ? routes.admin.auth.login : routes.user.auth.login,
         });
     }, [isAdmin, navigate]);
+
+    useEffect(() => {
+        const token = localStorage.getItem('accessToken');
+        if (!location.pathname.includes('/auth') && !token) {
+            const nextRoute = isAdmin
+                ? routes.admin.auth.login
+                : routes.user.auth.login;
+
+            navigate({ to: nextRoute });
+        }
+    }, [isAdmin, location.pathname, navigate]);
 
     return (
         <Box width="100svw" height="100svh" overflow="hidden" display="flex">
