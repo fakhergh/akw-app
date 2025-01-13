@@ -1,7 +1,7 @@
 import IconPeople from '@mui/icons-material/People';
 
 import { KPICard } from '@/components/KPICard/KPICard';
-import { useUsersCount } from '@/services/userService.ts';
+import { useUsersCount } from '@/services/userService';
 
 export function UserKPICardContainer() {
     const { data, isLoading } = useUsersCount();

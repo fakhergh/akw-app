@@ -14,7 +14,7 @@ import { KycSubmission, User } from '@/services/api';
 import {
     useApproveKycSubmission,
     useRejectKycSubmission,
-} from '@/services/kycSubmissionService.ts';
+} from '@/services/kycSubmissionService';
 
 export interface KycSubmissionDataTableContainerProps {
     id: string;

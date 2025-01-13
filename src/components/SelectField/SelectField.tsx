@@ -2,7 +2,7 @@ import { SelectChangeEvent } from '@mui/material/Select';
 import { useField } from 'formik';
 import * as React from 'react';
 
-import { Select, SelectProps } from '@/components/Select/Select.tsx';
+import { Select, SelectProps } from '@/components/Select/Select';
 import { BaseFieldProps } from '@/interfaces/form';
 
 export interface SelectFieldProps

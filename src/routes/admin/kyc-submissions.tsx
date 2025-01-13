@@ -1,3 +1,4 @@
+import IconRefresh from '@mui/icons-material/Refresh';
 import Box from '@mui/material/Box';
 import { createFileRoute } from '@tanstack/react-router';
 import { useCallback, useMemo, useState } from 'react';
@@ -31,13 +32,18 @@ const headCells: Array<HeadCell> = [
     { itemKey: 'actions', label: 'Actions', sx: { right: 0 } },
 ];
 
+enum ToolbarActionKey {
+    REFETCH,
+}
+
 function RouteComponent() {
     const [page, setPage] = useState<number>(1);
 
-    const { data, isLoading, isError } = usePaginatedKycSubmissions({
-        page,
-        limit: 10,
-    });
+    const { data, refetch, isRefetching, isLoading, isError } =
+        usePaginatedKycSubmissions({
+            page,
+            limit: 10,
+        });
 
     const totalPages = useTotalPages(data?.totalPages);
 
@@ -71,16 +77,41 @@ function RouteComponent() {
         [],
     );
 
+    const toolbarActions = useMemo(
+        () => [
+            {
+                itemKey: ToolbarActionKey.REFETCH,
+                tooltip: 'Refetch',
+                icon: IconRefresh,
+                disabled: isLoading || isRefetching,
+            },
+        ],
+        [isLoading, isRefetching],
+    );
+
+    const onToolbarActionClick = useCallback(
+        (key: ToolbarActionKey) => {
+            switch (key) {
+                case ToolbarActionKey.REFETCH:
+                    refetch().catch(console.error);
+                    break;
+            }
+        },
+        [refetch],
+    );
+
     if (isError) return 'Error...';
 
     return (
         <Box flex={1}>
-            <DataTable<KycSubmissionDataTableContainerProps>
+            <DataTable<KycSubmissionDataTableContainerProps, ToolbarActionKey>
                 title="KYC Submissions"
                 stickyHeader
                 totalPages={totalPages}
-                loading={isLoading}
+                loading={isLoading || isRefetching}
                 headCells={headCells}
+                toolbarActions={toolbarActions}
+                onToolbarActionClick={onToolbarActionClick}
                 page={page}
                 onPageChange={setPage}
                 items={submissions}

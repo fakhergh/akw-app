@@ -8,7 +8,7 @@ import { Formik } from 'formik';
 import { useCallback, useState } from 'react';
 
 import { InputField } from '@/components/InputField/InputField';
-import { BaseFormProps } from '@/interfaces/form.ts';
+import { BaseFormProps } from '@/interfaces/form';
 import Yup from '@/utils/yup';
 
 export interface LoginFormValues {
@@ -26,16 +26,21 @@ const defaultValues: LoginFormValues = {
     password: '',
 };
 
+const adminDefaultValues: LoginFormValues = {
+    email: 'admin@gmail.com',
+    password: '0000',
+};
+
 const validationSchema = Yup.object().shape({
     email: Yup.string().email().required(),
     password: Yup.string().required(),
 });
 
 export function LoginForm({
-    initialValues = defaultValues,
     loading,
     onSubmit,
     userType,
+    initialValues = userType === 'admin' ? adminDefaultValues : defaultValues,
 }: LoginFormProps) {
     const [passwordVisible, setPasswordVisible] = useState(false);
 

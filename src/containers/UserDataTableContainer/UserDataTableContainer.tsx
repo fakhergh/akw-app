@@ -69,17 +69,19 @@ export function UserDataTableContainer({
         enabled: kycSubmissionQueryEnabled,
     });
 
+    const kycSubmissionId = data?._id;
+
     const {
         mutate: approveSubmission,
         data: approveSubmissionData,
         isPending: approveSubmissionPending,
-    } = useApproveKycSubmission(id);
+    } = useApproveKycSubmission(kycSubmissionId!);
 
     const {
         mutate: rejectSubmission,
         data: rejectSubmissionData,
         isPending: rejectSubmissionPending,
-    } = useRejectKycSubmission(id);
+    } = useRejectKycSubmission(kycSubmissionId!);
 
     const columns = useMemo<Array<DataTableCellProps<ColumnKey>>>(
         () => [
@@ -143,12 +145,14 @@ export function UserDataTableContainer({
     useEffect(() => {
         if (approveSubmissionData) {
             setApproveDialogVisible(false);
+            setDetailsDialogVisible(false);
         }
     }, [approveSubmissionData]);
 
     useEffect(() => {
         if (rejectSubmissionData) {
             setRejectDialogVisible(false);
+            setDetailsDialogVisible(false);
         }
     }, [rejectSubmissionData]);
 

@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import { createFileRoute } from '@tanstack/react-router';
 
 import { KycKPICardContainer } from '@/containers/KycKPICardContainer/KycKPICardContainer';
-import { UserKPICardContainer } from '@/containers/UserKPICardContainer/UserKPICardContainer.tsx';
+import { UserKPICardContainer } from '@/containers/UserKPICardContainer/UserKPICardContainer';
 import { KycSubmission } from '@/services/api';
 
 export const Route = createFileRoute('/admin/dashboard')({

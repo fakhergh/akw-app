@@ -1,3 +1,4 @@
+import IconRefresh from '@mui/icons-material/Refresh';
 import Box from '@mui/material/Box';
 import { createFileRoute } from '@tanstack/react-router';
 import { useCallback, useMemo, useState } from 'react';
@@ -11,7 +12,7 @@ import {
     UserDataTableContainer,
     UserDataTableContainerProps,
 } from '@/containers/UserDataTableContainer/UserDataTableContainer';
-import { useTotalPages } from '@/hooks/useTotalPages.ts';
+import { useTotalPages } from '@/hooks/useTotalPages';
 import { usePaginatedUsers } from '@/services/userService';
 
 export const Route = createFileRoute('/admin/users')({
@@ -28,10 +29,15 @@ const headCells: Array<HeadCell> = [
     { itemKey: 'actions', label: 'Actions' },
 ];
 
+enum ToolbarActionKey {
+    REFETCH,
+}
+
 function RouteComponent() {
     const [page, setPage] = useState<number>(1);
 
-    const { isLoading, data, isError } = usePaginatedUsers({ page, limit: 10 });
+    const { data, refetch, isLoading, isError, isRefetching } =
+        usePaginatedUsers({ page, limit: 10 });
 
     const totalPages = useTotalPages(data?.totalPages);
 
@@ -56,16 +62,41 @@ function RouteComponent() {
         [],
     );
 
+    const toolbarActions = useMemo(
+        () => [
+            {
+                itemKey: ToolbarActionKey.REFETCH,
+                tooltip: 'Refetch',
+                icon: IconRefresh,
+                disabled: isLoading || isRefetching,
+            },
+        ],
+        [isLoading, isRefetching],
+    );
+
+    const onToolbarActionClick = useCallback(
+        (key: ToolbarActionKey) => {
+            switch (key) {
+                case ToolbarActionKey.REFETCH:
+                    refetch().catch(console.error);
+                    break;
+            }
+        },
+        [refetch],
+    );
+
     if (isError) return 'Error...';
 
     return (
         <Box flex={1}>
-            <DataTable<UserDataTableContainerProps>
+            <DataTable<UserDataTableContainerProps, ToolbarActionKey>
                 title="Users"
                 stickyHeader
                 totalPages={totalPages}
-                loading={isLoading}
+                loading={isLoading || isRefetching}
                 headCells={headCells}
+                toolbarActions={toolbarActions}
+                onToolbarActionClick={onToolbarActionClick}
                 page={page}
                 onPageChange={setPage}
                 items={users}

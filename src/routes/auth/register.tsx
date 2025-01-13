@@ -10,7 +10,7 @@ import {
     RegisterForm,
     RegisterFormValues,
 } from '@/components/RegisterForm/RegisterForm';
-import { routes } from '@/config/navigation.ts';
+import { routes } from '@/config/navigation';
 import { UserRegisterDto } from '@/services/api';
 import { useUserRegister } from '@/services/authService';
 

@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 
-import { KycSubmissionFormContainer } from '@/containers/KycSubmissionFormContainer/KycSubmissionFormContainer.tsx';
+import { KycSubmissionFormContainer } from '@/containers/KycSubmissionFormContainer/KycSubmissionFormContainer';
 import { User } from '@/services/api';
 import { useUserProfile } from '@/services/authService';
 

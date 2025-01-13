@@ -128,6 +128,16 @@ export function useApproveKycSubmission(id: string) {
                     return prev;
                 },
             );
+
+            queryClient.setQueriesData<KycSubmission | undefined>(
+                {
+                    predicate: ({ queryKey }) =>
+                        queryKey.includes('kyc-submission-by-user'),
+                },
+                () => {
+                    return data;
+                },
+            );
         },
     });
 }
@@ -185,6 +195,16 @@ export function useRejectKycSubmission(id: string) {
                         };
                     }
                     return prev;
+                },
+            );
+
+            queryClient.setQueriesData<KycSubmission | undefined>(
+                {
+                    predicate: ({ queryKey }) =>
+                        queryKey.includes('kyc-submission-by-user'),
+                },
+                () => {
+                    return data;
                 },
             );
         },
