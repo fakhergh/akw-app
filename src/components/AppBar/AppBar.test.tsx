@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 
 import { AppBar } from '@/components/AppBar/AppBar';
@@ -14,11 +14,11 @@ describe('<AppBar/>', () => {
     it('Should toggle open', () => {
         const toggleMenu = vi.fn();
 
-        render(
+        const { getByTestId } = render(
             <AppBar drawerWidth={drawerWidth} onMenuButtonClick={toggleMenu} />,
         );
 
-        const menuButton = screen.getByTestId('menu-button');
+        const menuButton = getByTestId('menu-button');
 
         fireEvent.click(menuButton);
 

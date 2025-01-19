@@ -58,6 +58,7 @@ export function LoginForm({
                 <Grid container spacing={4}>
                     <Grid item xs={12}>
                         <InputField
+                            data-testid="email-input"
                             margin="normal"
                             required
                             fullWidth
@@ -69,6 +70,7 @@ export function LoginForm({
                     </Grid>
                     <Grid item xs={12}>
                         <InputField
+                            data-testid="password-input"
                             margin="normal"
                             required
                             fullWidth
@@ -97,6 +99,7 @@ export function LoginForm({
                     </Grid>
                     <Grid item xs={12}>
                         <Button
+                            data-testid="submit-btn"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 1, mb: 2 }}

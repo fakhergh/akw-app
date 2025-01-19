@@ -13,6 +13,7 @@
         "preview": "vite preview",
         "test": "vitest --config ./vitest.config.ts --run",
         "test:watch": "vitest --config ./vitest.config.ts",
+        "test:coverage": "vitest --config ./vitest.config.ts run --coverage",
         "codegen": "openapi -i http://localhost:9000/docs.json -o src/services/api -c axios",
         "postcodegen": "npm run static:fix"
     },
@@ -41,10 +42,12 @@
         "@tanstack/router-plugin": "^1.95.3",
         "@testing-library/jest-dom": "^6.6.3",
         "@testing-library/react": "^16.1.0",
+        "@testing-library/user-event": "^14.6.0",
         "@types/luxon": "^3.4.2",
         "@types/react": "^18.3.18",
         "@types/react-dom": "^18.3.5",
         "@vitejs/plugin-react-swc": "^3.5.0",
+        "@vitest/coverage-v8": "^3.0.2",
         "eslint": "^9.17.0",
         "eslint-plugin-react-hooks": "^5.0.0",
         "eslint-plugin-react-refresh": "^0.4.16",
@@ -57,6 +60,6 @@
         "typescript": "~5.6.2",
         "typescript-eslint": "^8.18.2",
         "vite": "^6.0.5",
-        "vitest": "^2.1.8"
+        "vitest": "^3.0.2"
     }
 }
