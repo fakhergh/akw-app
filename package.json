@@ -14,6 +14,8 @@
         "test": "vitest --config ./vitest.config.ts --run",
         "test:watch": "vitest --config ./vitest.config.ts",
         "test:coverage": "vitest --config ./vitest.config.ts run --coverage",
+        "test:e2e": "playwright test",
+        "test:e2e:report": "playwright show-report",
         "codegen": "openapi -i http://localhost:9000/docs.json -o src/services/api -c axios",
         "postcodegen": "npm run static:fix"
     },
@@ -37,6 +39,7 @@
     },
     "devDependencies": {
         "@eslint/js": "^9.17.0",
+        "@playwright/test": "^1.49.1",
         "@tanstack/eslint-plugin-query": "^5.62.16",
         "@tanstack/router-devtools": "^1.95.3",
         "@tanstack/router-plugin": "^1.95.3",
@@ -44,6 +47,7 @@
         "@testing-library/react": "^16.1.0",
         "@testing-library/user-event": "^14.6.0",
         "@types/luxon": "^3.4.2",
+        "@types/node": "^22.10.7",
         "@types/react": "^18.3.18",
         "@types/react-dom": "^18.3.5",
         "@vitejs/plugin-react-swc": "^3.5.0",
