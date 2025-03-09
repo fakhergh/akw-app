@@ -9,7 +9,7 @@ import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
-import { KycSubmission } from '@/services/api';
+import { KycSubmissionStatusEnum } from '@/services/generated';
 import { pascalCase } from '@/utils/formatter';
 
 export interface KycSubmissionDetailsDialogProps extends DialogProps {
@@ -25,7 +25,7 @@ export interface KycSubmissionDetailsDialogProps extends DialogProps {
     address?: string;
     phoneNumber?: string;
     gender?: string;
-    status?: KycSubmission.status;
+    status?: KycSubmissionStatusEnum;
     documentUrls?: Array<string>;
 }
 
@@ -171,7 +171,7 @@ export function KycSubmissionDetailsDialog({
                     gap={2}
                     alignItems="center"
                     justifyContent={
-                        status === KycSubmission.status.PENDING
+                        status === KycSubmissionStatusEnum.Pending
                             ? 'space-between'
                             : 'flex-end'
                     }
@@ -185,7 +185,7 @@ export function KycSubmissionDetailsDialog({
                     </Button>
                     <Box
                         display={
-                            status === KycSubmission.status.PENDING
+                            status === KycSubmissionStatusEnum.Pending
                                 ? 'block'
                                 : 'none'
                         }

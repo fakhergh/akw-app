@@ -1,22 +1,22 @@
 import IconFeed from '@mui/icons-material/Feed';
 
 import { KPICard } from '@/components/KPICard/KPICard';
-import { KycSubmission } from '@/services/api';
+import { KycSubmissionStatusEnum } from '@/services/generated';
 import { useKycSubmissionCount } from '@/services/kycSubmissionService';
 export interface KycKPICardContainerProps {
-    status?: KycSubmission.status;
+    status?: KycSubmissionStatusEnum;
 }
 
-const titleConfig: Record<KycSubmission.status, string> = {
-    [KycSubmission.status.PENDING]: 'Pending KYC requests',
-    [KycSubmission.status.APPROVED]: 'Approved KYC requests',
-    [KycSubmission.status.REJECTED]: 'Rejected KYC requests',
+const titleConfig: Record<KycSubmissionStatusEnum, string> = {
+    [KycSubmissionStatusEnum.Pending]: 'Pending KYC requests',
+    [KycSubmissionStatusEnum.Approved]: 'Approved KYC requests',
+    [KycSubmissionStatusEnum.Rejected]: 'Rejected KYC requests',
 };
 
-const iconBackgroundColorConfig: Record<KycSubmission.status, string> = {
-    [KycSubmission.status.PENDING]: 'warning.main',
-    [KycSubmission.status.APPROVED]: 'success.main',
-    [KycSubmission.status.REJECTED]: 'error.main',
+const iconBackgroundColorConfig: Record<KycSubmissionStatusEnum, string> = {
+    [KycSubmissionStatusEnum.Pending]: 'warning.main',
+    [KycSubmissionStatusEnum.Approved]: 'success.main',
+    [KycSubmissionStatusEnum.Rejected]: 'error.main',
 };
 
 export function KycKPICardContainer({ status }: KycKPICardContainerProps) {

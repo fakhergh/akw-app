@@ -16,7 +16,7 @@
         "test:coverage": "vitest --config ./vitest.config.ts run --coverage",
         "test:e2e": "playwright test",
         "test:e2e:report": "playwright show-report",
-        "codegen": "openapi -i http://localhost:9000/docs.json -o src/services/api -c axios",
+        "codegen": "openapi-generator-cli generate -i http://localhost:9000/docs.json -g typescript-axios -o ./src/services/generated",
         "postcodegen": "npm run static:fix"
     },
     "dependencies": {
@@ -58,8 +58,6 @@
         "eslint-plugin-simple-import-sort": "^12.1.1",
         "globals": "^15.14.0",
         "happy-dom": "^16.5.3",
-        "openapi-typescript": "^7.5.2",
-        "openapi-typescript-codegen": "^0.29.0",
         "prettier": "^3.4.2",
         "typescript": "~5.6.2",
         "typescript-eslint": "^8.18.2",

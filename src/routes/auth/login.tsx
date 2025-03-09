@@ -9,8 +9,8 @@ import { AuthCard } from '@/components/AuthCard/AuthCard';
 import { Link } from '@/components/Link/Link';
 import { LoginForm, LoginFormValues } from '@/components/LoginForm/LoginForm';
 import { routes } from '@/config/navigation';
-import { LoginDto } from '@/services/api';
 import { useUserLogin } from '@/services/authService';
+import { LoginDto } from '@/services/generated';
 
 export const Route = createFileRoute('/auth/login')({
     component: RouteComponent,

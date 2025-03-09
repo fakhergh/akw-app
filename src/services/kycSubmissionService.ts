@@ -1,15 +1,15 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
+import { ApiService } from '@/services/apiService';
 import {
-    ApiError,
     KycSubmission,
-    KycSubmissionService,
     PaginatedKycSubmissionResponse,
     PaginatedUserResponse,
     PaginationQueryParams,
     TotalKycSubmissionResponse,
-    User,
-} from '@/services/api';
+    UserKycStatusEnum,
+} from '@/services/generated';
 import { queryClient } from '@/services/queryClient';
 
 export interface CreateKycSubmissionDto {
@@ -26,13 +26,12 @@ export function usePaginatedKycSubmissions({
     page,
     limit,
 }: PaginationQueryParams = {}) {
-    return useQuery<PaginatedKycSubmissionResponse, ApiError>({
+    return useQuery<PaginatedKycSubmissionResponse, AxiosError>({
         queryKey: ['paginated-kyc-submissions', page, limit],
         queryFn: () =>
-            KycSubmissionService.kycSubmissionControllerPaginatedKycSubmissions(
-                page,
-                limit,
-            ),
+            ApiService.kycSubmissions
+                .kycSubmissionControllerPaginatedKycSubmissions(page, limit)
+                .then((response) => response.data),
     });
 }
 
@@ -40,33 +39,49 @@ export function useKycSubmission(
     userId: string,
     { enabled }: { enabled: boolean },
 ) {
-    return useQuery<KycSubmission, ApiError>({
+    return useQuery<KycSubmission, AxiosError>({
         queryKey: ['kyc-submission-by-user', userId],
         queryFn: () =>
-            KycSubmissionService.kycSubmissionControllerKycSubmissionByUser(
-                userId,
-            ),
+            ApiService.kycSubmissions
+                .kycSubmissionControllerKycSubmissionByUser(userId)
+                .then((response) => response.data),
         enabled,
     });
 }
 
 export function useKycSubmissionCount(status?: string) {
-    return useQuery<TotalKycSubmissionResponse, ApiError>({
+    return useQuery<TotalKycSubmissionResponse, AxiosError>({
         queryKey: ['kyc-submissions-count', status],
         queryFn: () =>
-            KycSubmissionService.kycSubmissionControllerKycSubmissionCount(
-                status,
-            ),
+            ApiService.kycSubmissions
+                .kycSubmissionControllerKycSubmissionCount(status)
+                .then((response) => response.data),
     });
 }
 
 export function useCreateKycSubmission() {
-    return useMutation<KycSubmission, ApiError, CreateKycSubmissionDto>({
+    return useMutation<KycSubmission, AxiosError, CreateKycSubmissionDto>({
         mutationKey: ['create-kyc-submission'],
-        mutationFn: (form) =>
-            KycSubmissionService.kycSubmissionControllerCreateKycSubmission(
-                form,
-            ),
+        mutationFn: ({
+            firstName,
+            lastName,
+            email,
+            address,
+            phoneNumber,
+            gender,
+            documents,
+        }) =>
+            ApiService.kycSubmissions
+                .kycSubmissionControllerCreateKycSubmission(
+                    firstName,
+                    lastName,
+                    email,
+                    address,
+                    phoneNumber,
+                    gender,
+                    documents as Array<File>,
+                )
+                .then((response) => response.data),
         onSuccess: () => {
             return queryClient.refetchQueries({ queryKey: ['user-profile'] });
         },
@@ -74,10 +89,12 @@ export function useCreateKycSubmission() {
 }
 
 export function useApproveKycSubmission(id: string) {
-    return useMutation<KycSubmission, ApiError>({
+    return useMutation<KycSubmission, AxiosError>({
         mutationKey: ['approve-kyc-submission', id],
         mutationFn: () =>
-            KycSubmissionService.kycSubmissionControllerApproveSubmission(id),
+            ApiService.kycSubmissions
+                .kycSubmissionControllerApproveSubmission(id)
+                .then((response) => response.data),
         onSuccess: async (data: KycSubmission) => {
             await queryClient.refetchQueries({
                 predicate: ({ queryKey }) =>
@@ -119,7 +136,8 @@ export function useApproveKycSubmission(id: string) {
                                 return user._id === data.userId
                                     ? {
                                           ...user,
-                                          kycStatus: status as User.kycStatus,
+                                          kycStatus:
+                                              status as UserKycStatusEnum,
                                       }
                                     : user;
                             }),
@@ -143,10 +161,12 @@ export function useApproveKycSubmission(id: string) {
 }
 
 export function useRejectKycSubmission(id: string) {
-    return useMutation<KycSubmission, ApiError>({
+    return useMutation<KycSubmission, AxiosError>({
         mutationKey: ['reject-kyc-submission', id],
         mutationFn: () =>
-            KycSubmissionService.kycSubmissionControllerRejectSubmission(id),
+            ApiService.kycSubmissions
+                .kycSubmissionControllerRejectSubmission(id)
+                .then((response) => response.data),
         onSuccess: async (data: KycSubmission) => {
             await queryClient.refetchQueries({
                 predicate: ({ queryKey }) =>
@@ -188,7 +208,8 @@ export function useRejectKycSubmission(id: string) {
                                 return user._id === data.userId
                                     ? {
                                           ...user,
-                                          kycStatus: status as User.kycStatus,
+                                          kycStatus:
+                                              status as UserKycStatusEnum,
                                       }
                                     : user;
                             }),

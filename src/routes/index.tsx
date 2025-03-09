@@ -6,8 +6,8 @@ import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 
 import { KycSubmissionFormContainer } from '@/containers/KycSubmissionFormContainer/KycSubmissionFormContainer';
-import { User } from '@/services/api';
 import { useUserProfile } from '@/services/authService';
+import { UserKycStatusEnum } from '@/services/generated';
 
 export const Route = createFileRoute('/')({
     component: RouteComponent,
@@ -20,11 +20,14 @@ function RouteComponent() {
 
     const incompleteKycAlertVisible = data && !data?.kycStatus;
 
-    const approvedKycAlertVisible = data?.kycStatus === User.kycStatus.APPROVED;
+    const approvedKycAlertVisible =
+        data?.kycStatus === UserKycStatusEnum.Approved;
 
-    const pendingKycAlertVisible = data?.kycStatus === User.kycStatus.PENDING;
+    const pendingKycAlertVisible =
+        data?.kycStatus === UserKycStatusEnum.Pending;
 
-    const rejectedKycAlertVisible = data?.kycStatus === User.kycStatus.REJECTED;
+    const rejectedKycAlertVisible =
+        data?.kycStatus === UserKycStatusEnum.Rejected;
 
     return (
         <div>

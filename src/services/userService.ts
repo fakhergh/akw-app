@@ -1,23 +1,29 @@
 import { useQuery } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 
+import { ApiService } from '@/services/apiService';
 import {
-    ApiError,
     PaginatedUserResponse,
     PaginationQueryParams,
     TotalUserCountResponse,
-    UserService,
-} from '@/services/api';
+} from '@/services/generated';
 
 export function usePaginatedUsers({ page, limit }: PaginationQueryParams = {}) {
-    return useQuery<PaginatedUserResponse, ApiError>({
+    return useQuery<PaginatedUserResponse, AxiosError>({
         queryKey: ['paginated-users', page, limit],
-        queryFn: () => UserService.userControllerPaginatedUsers(page, limit),
+        queryFn: () =>
+            ApiService.users
+                .userControllerPaginatedUsers(page, limit)
+                .then((response) => response.data),
     });
 }
 
 export function useUsersCount() {
-    return useQuery<TotalUserCountResponse, ApiError>({
+    return useQuery<TotalUserCountResponse, AxiosError>({
         queryKey: ['users-count'],
-        queryFn: () => UserService.userControllerUsersCount(),
+        queryFn: () =>
+            ApiService.users
+                .userControllerUsersCount()
+                .then((response) => response.data),
     });
 }

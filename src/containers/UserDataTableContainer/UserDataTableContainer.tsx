@@ -8,7 +8,7 @@ import {
 } from '@/components/DataTableRow/DataTableRow';
 import { KycSubmissionDetailsDialog } from '@/components/KycSubmissionDetailsDialog/KycSubmissionDetailsDialog';
 import { ConfirmationDialog } from '@/containers/ConfirmationDialog/ConfirmationDialog';
-import { User } from '@/services/api';
+import { UserKycStatusEnum } from '@/services/generated';
 import {
     useApproveKycSubmission,
     useKycSubmission,
@@ -20,7 +20,7 @@ export interface UserDataTableContainerProps {
     firstName: string;
     lastName: string;
     email: string;
-    kycStatus?: User.kycStatus;
+    kycStatus?: UserKycStatusEnum;
     createdAt: string;
 }
 
@@ -38,12 +38,14 @@ enum ActionKey {
     SHOW_DOCUMENTS,
 }
 
-const kycStatusConfig: Record<User.kycStatus, 'warning' | 'error' | 'success'> =
-    {
-        [User.kycStatus.PENDING]: 'warning',
-        [User.kycStatus.REJECTED]: 'error',
-        [User.kycStatus.APPROVED]: 'success',
-    };
+const kycStatusConfig: Record<
+    UserKycStatusEnum,
+    'warning' | 'error' | 'success'
+> = {
+    [UserKycStatusEnum.Pending]: 'warning',
+    [UserKycStatusEnum.Rejected]: 'error',
+    [UserKycStatusEnum.Approved]: 'success',
+};
 
 export function UserDataTableContainer({
     id,

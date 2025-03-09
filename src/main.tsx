@@ -7,14 +7,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { routeTree } from '@/routeTree.gen';
-import { OpenAPI } from '@/services/api';
 import { queryClient } from '@/services/queryClient';
 import { theme } from '@/styles/theme';
-
-OpenAPI.BASE = import.meta.env.VITE_API_URL!;
-OpenAPI.TOKEN = async () => {
-    return localStorage.getItem('accessToken')!;
-};
 
 const router = createRouter({ routeTree });
 

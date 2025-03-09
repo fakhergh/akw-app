@@ -11,8 +11,8 @@ import {
     RegisterFormValues,
 } from '@/components/RegisterForm/RegisterForm';
 import { routes } from '@/config/navigation';
-import { UserRegisterDto } from '@/services/api';
 import { useUserRegister } from '@/services/authService';
+import { UserRegisterDto } from '@/services/generated';
 
 export const Route = createFileRoute('/auth/register')({
     component: RouteComponent,

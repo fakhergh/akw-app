@@ -4,7 +4,7 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { KycKPICardContainer } from '@/containers/KycKPICardContainer/KycKPICardContainer';
 import { UserKPICardContainer } from '@/containers/UserKPICardContainer/UserKPICardContainer';
-import { KycSubmission } from '@/services/api';
+import { KycSubmissionStatusEnum } from '@/services/generated';
 
 export const Route = createFileRoute('/admin/dashboard')({
     component: RouteComponent,
@@ -22,17 +22,17 @@ function RouteComponent() {
                 </Grid>
                 <Grid item xs={12} md={6} lg={4}>
                     <KycKPICardContainer
-                        status={KycSubmission.status.PENDING}
+                        status={KycSubmissionStatusEnum.Pending}
                     />
                 </Grid>
                 <Grid item xs={12} md={6} lg={4}>
                     <KycKPICardContainer
-                        status={KycSubmission.status.APPROVED}
+                        status={KycSubmissionStatusEnum.Approved}
                     />
                 </Grid>
                 <Grid item xs={12} md={6} lg={4}>
                     <KycKPICardContainer
-                        status={KycSubmission.status.REJECTED}
+                        status={KycSubmissionStatusEnum.Rejected}
                     />
                 </Grid>
             </Grid>

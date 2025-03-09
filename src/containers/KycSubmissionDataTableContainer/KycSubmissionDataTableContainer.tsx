@@ -10,7 +10,11 @@ import {
 } from '@/components/DataTableRow/DataTableRow';
 import { KycSubmissionDetailsDialog } from '@/components/KycSubmissionDetailsDialog/KycSubmissionDetailsDialog';
 import { ConfirmationDialog } from '@/containers/ConfirmationDialog/ConfirmationDialog';
-import { KycSubmission, User } from '@/services/api';
+import {
+    KycSubmissionGenderEnum,
+    KycSubmissionStatusEnum,
+    UserKycStatusEnum,
+} from '@/services/generated';
 import {
     useApproveKycSubmission,
     useRejectKycSubmission,
@@ -23,8 +27,8 @@ export interface KycSubmissionDataTableContainerProps {
     email: string;
     address: string;
     phoneNumber: string;
-    gender: KycSubmission.gender;
-    status?: KycSubmission.status;
+    gender: KycSubmissionGenderEnum;
+    status?: KycSubmissionStatusEnum;
     createdAt: string;
     documentUrls: Array<string>;
 }
@@ -48,12 +52,14 @@ enum ActionKey {
     REJECT_KYC_STATUS,
 }
 
-const kycStatusConfig: Record<User.kycStatus, 'warning' | 'error' | 'success'> =
-    {
-        [User.kycStatus.PENDING]: 'warning',
-        [User.kycStatus.REJECTED]: 'error',
-        [User.kycStatus.APPROVED]: 'success',
-    };
+const kycStatusConfig: Record<
+    UserKycStatusEnum,
+    'warning' | 'error' | 'success'
+> = {
+    [UserKycStatusEnum.Pending]: 'warning',
+    [UserKycStatusEnum.Rejected]: 'error',
+    [UserKycStatusEnum.Approved]: 'success',
+};
 
 export function KycSubmissionDataTableContainer({
     id,
@@ -130,7 +136,9 @@ export function KycSubmissionDataTableContainer({
                 value: gender,
                 type: 'badge',
                 color:
-                    gender === KycSubmission.gender.MALE ? 'primary' : 'error',
+                    gender === KycSubmissionGenderEnum.Male
+                        ? 'primary'
+                        : 'error',
             },
             {
                 itemKey: ColumnKey.CREATED_AT,
@@ -160,7 +168,7 @@ export function KycSubmissionDataTableContainer({
             },
         ];
 
-        if (status === KycSubmission.status.PENDING) {
+        if (status === KycSubmissionStatusEnum.Pending) {
             return [
                 ...actionItems,
                 {

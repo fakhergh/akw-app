@@ -7,8 +7,8 @@ import { useCallback, useEffect } from 'react';
 import { AuthCard } from '@/components/AuthCard/AuthCard';
 import { LoginForm, LoginFormValues } from '@/components/LoginForm/LoginForm';
 import { routes } from '@/config/navigation';
-import { LoginDto } from '@/services/api';
 import { useAdminLogin } from '@/services/authService';
+import { LoginDto } from '@/services/generated';
 
 export const Route = createFileRoute('/admin/auth/login')({
     component: RouteComponent,
